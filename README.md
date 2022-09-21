@@ -1,2 +1,4 @@
 # AIProject
-Semester Project for Introduction to Artifical Inteligence 
+
+Semester Project for Introduction to Artifical Inteligence
+Does this work - Sebastian Baglo
