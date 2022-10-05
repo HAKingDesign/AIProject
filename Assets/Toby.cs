@@ -58,7 +58,7 @@ public class Toby : MonoBehaviour
     {
         float wanderDistance = 8;  //Distance circle is located offset from agent.
         float wanderRadius = 8;    //Radius of circle.
-        float wanderJitter = 1;    //Variable that effects the amount of player point repositioning on the circle.
+        float wanderJitter = 1.0f;    //Variable that effects the amount of player point repositioning on the circle.
 
         wanderTarget += new Vector3(Random.Range(-1.0f, 1.0f) * wanderJitter,
                                     0,
