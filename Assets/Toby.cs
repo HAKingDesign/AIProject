@@ -88,8 +88,8 @@ public class Toby : MonoBehaviour
         Vector3 rayToPlayer = player.transform.position - this.transform.position; //Calculate a ray to the player from the agent.
         float lookAngle = Vector3.Angle(this.transform.forward, rayToPlayer); //Determines if the agent is facing towards the player.
 
-        if (Vector3.Distance(this.transform.position, player.transform.position) < 5 &&              //Checks whether the player is within 5 units of the agent.
-                             lookAngle < 60 &&                                                       //Checks to see if the agent is looking at the player within a 60 degree angle.
+        if (Vector3.Distance(this.transform.position, player.transform.position) < 10 &&              //Checks whether the player is within 5 units of the agent.
+                             lookAngle < 80 &&                                                       //Checks to see if the agent is looking at the player within a 60 degree angle.
                              Physics.Raycast(this.transform.position, rayToPlayer, out raycastInfo)) //Performs a raycast to determine if there's anything between the agent and the player.
         {
             if (raycastInfo.transform.gameObject.tag == "Player") //If the ray hits the player when no other colliders are in the way, the agent can see the player.
