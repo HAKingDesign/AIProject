@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectCollection : MonoBehaviour
 {
     public int Paper = 0;
-    public int paperToWin = 3;
+    public int paperToWin = 7;
 
     void OnTriggerEnter(Collider other)
     {
