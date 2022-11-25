@@ -81,7 +81,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
         currentWP++;    //Increments the waypoint index.
         if (currentWP >= wps.Length)   //Resets the currentWP index to restart at the first waypoint when the index limit is reached.
             currentWP = 0;
-        while (timePassed < 5)  //Represents the number of seconds this function will run.
+        while (timePassed < 8)  //Represents the number of seconds this function will run.
         {
             float wanderDistance = 10;  //Distance circle is located offset from agent.
             float wanderRadius = 10;    //Radius of circle.
