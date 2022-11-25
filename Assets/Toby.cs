@@ -24,7 +24,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     public GameObject[] wps; //Declares an array of game objects used for the waypoint system.
     int currentWP = 0;  //This variable represents which waypoint the AI is targeting.
     Vector3 wanderTarget = Vector3.zero; //Baseline target position that is updated with a new value for the target position to seek each time the Wander() function is called.
-  
+
 
     /* 
         NAME: Start
@@ -36,10 +36,6 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>(); //Returns the component of type<> if the GameObject has one attached.
-        //ObjectCollection objectCollection = GetComponent<ObjectCollection>();
-        //objectCollection.Paper = 0;
-
-        GameObject.Find("ThePlayer").GetComponent<ObjectCollection>().Paper = 0;
     }
 
 
@@ -145,12 +141,10 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     void Update()
     {
         if (CanSeePlayer())     //Pursue the player if the player is visible based on the conditions of the CanSeePlayer function.
-            Seek(player.transform.position);    
+            Seek(player.transform.position);
         if (!CanSeePlayer())    //If the player is not visible based on the conditions of the CanSeePlayer function, continue to call the Patrol function.
             Patrol();
         if (Vector3.Distance(agent.transform.position, wps[currentWP].transform.position) < 3 && !CanSeePlayer())   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
             StartCoroutine(Wander());
-        if (GameObject.Find("ThePlayer").GetComponent<ObjectCollection>().Paper += 1)
-            agent.speed += 1;
     }
 }
