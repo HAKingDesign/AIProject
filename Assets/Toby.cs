@@ -22,10 +22,12 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     NavMeshAgent agent; //This component is attached to a mobile character in the game to allow it to navigate the Scene using the NavMesh.
     public GameObject player; //Declares the player as a game object to be interacted with.
     public GameObject[] wps; //Declares an array of game objects used for the waypoint system.
+    public GameObject paperObject; //Declares the papers as a game object to be interacted with.
+    private ObjectCollection paperTracker;   //Declares an ObjectCollection variable to be used within the Toby class.
     int currentWP = 0;  //This variable represents which waypoint the AI is targeting.
     Vector3 wanderTarget = Vector3.zero; //Baseline target position that is updated with a new value for the target position to seek each time the Wander() function is called.
-    private ObjectCollision paperTracker;
-    public GameObject playerObject;
+
+
 
     /* 
         NAME: Start
@@ -37,7 +39,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>(); //Returns the component of type<> if the GameObject has one attached.
-        paperTracker = playerObject.GetComponent<ObjectCollision>();
+        paperTracker = paperObject.GetComponent<ObjectCollection>();    //Instantiates the ObjectCollection type variable as a game object.
     }
 
 
@@ -65,7 +67,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     */
     void Patrol()
     {
-        Seek(wps[currentWP].transform.position);
+        Seek(wps[currentWP].transform.position);    
     }
 
 
@@ -147,8 +149,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
         if (!CanSeePlayer())    //If the player is not visible based on the conditions of the CanSeePlayer function, continue to call the Patrol function.
             Patrol();
         if (Vector3.Distance(agent.transform.position, wps[currentWP].transform.position) < 3 && !CanSeePlayer())   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
-            StartCoroutine(Wander());
-        if (paperTracker.Paper == 1)
-            agent.speed = 10;
+            StartCoroutine(Wander());   //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
+        agent.speed = (float)((paperTracker.Paper * 0.5) + 3);  //Increases the AI's speed based on the number of papers collected.
     }
 }
