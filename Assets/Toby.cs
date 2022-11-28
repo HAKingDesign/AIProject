@@ -68,8 +68,6 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     void Patrol()
     {
         Seek(wps[currentWP].transform.position);
-        if (Vector3.Distance(agent.transform.position, wps[currentWP].transform.position) < 3 && !CanSeePlayer())   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
-            StartCoroutine(Wander());   //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
     }
 
 
@@ -83,6 +81,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     */
     IEnumerator Wander()    //Function type 'IEnumerator' required as a parameter to utilize the StartCoroutine function.
     {
+        agent.speed = 2;
         float timePassed = 0;   //This variable indicates time passed in seconds.
         currentWP++;    //Increments the waypoint index.
         if (currentWP >= wps.Length)   //Resets the currentWP index to restart at the first waypoint when the index limit is reached.
@@ -150,6 +149,8 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
             Seek(player.transform.position);
         if (!CanSeePlayer())    //If the player is not visible based on the conditions of the CanSeePlayer function, continue to call the Patrol function.
             Patrol();
-        agent.speed = (float)((paperTracker.Paper * 0.5) + 4);  //Increases the AI's speed based on the number of papers collected.
+        if (Vector3.Distance(agent.transform.position, wps[currentWP].transform.position) < 3 && !CanSeePlayer())   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
+            StartCoroutine(Wander());   //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
+        agent.speed = (float)((paperTracker.Paper * 0.5) + 3);  //Increases the AI's speed based on the number of papers collected.
     }
 }
