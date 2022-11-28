@@ -24,7 +24,8 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     public GameObject[] wps; //Declares an array of game objects used for the waypoint system.
     int currentWP = 0;  //This variable represents which waypoint the AI is targeting.
     Vector3 wanderTarget = Vector3.zero; //Baseline target position that is updated with a new value for the target position to seek each time the Wander() function is called.
-
+    private ObjectCollision paperTracker;
+    public GameObject playerObject;
 
     /* 
         NAME: Start
@@ -36,6 +37,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>(); //Returns the component of type<> if the GameObject has one attached.
+        paperTracker = playerObject.GetComponent<ObjectCollision>();
     }
 
 
@@ -81,7 +83,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
         currentWP++;    //Increments the waypoint index.
         if (currentWP >= wps.Length)   //Resets the currentWP index to restart at the first waypoint when the index limit is reached.
             currentWP = 0;
-        while (timePassed < 8)  //Represents the number of seconds this function will run.
+        while (timePassed < 5)  //Represents the number of seconds this function will run.
         {
             float wanderDistance = 10;  //Distance circle is located offset from agent.
             float wanderRadius = 10;    //Radius of circle.
@@ -146,5 +148,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
             Patrol();
         if (Vector3.Distance(agent.transform.position, wps[currentWP].transform.position) < 3 && !CanSeePlayer())   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
             StartCoroutine(Wander());
+        if (paperTracker.Paper == 1)
+            agent.speed = 10;
     }
 }
