@@ -3229,6 +3229,7 @@ MonoBehaviour:
   - {fileID: 2104014522}
   - {fileID: 60672613}
   paperObject: {fileID: 846233514}
+  wanderTarget: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
 --- !u!195 &144980061
 NavMeshAgent:
@@ -4552,7 +4553,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 628707326}
         m_TargetAssemblyTypeName: Pausememu, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: PauseResume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
