@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 
@@ -10,6 +11,8 @@ public class Pausememu : MonoBehaviour
     public static bool GamePaused = false;
 
     public GameObject PauseMenuUI;
+
+    public GameObject GameOverUI;
 
     public GameObject playerObject;
 
@@ -25,17 +28,18 @@ public class Pausememu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GamePaused)
-            {
+            {   
+                PauseMenuUI.SetActive(false);
                 Resume();
             } else 
             {
+                PauseMenuUI.SetActive(true);
                 Pause();
             }
         }
     }
     public void Resume()
     {
-        PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
         playerScript.cameraCanMove=true;
@@ -45,7 +49,6 @@ public class Pausememu : MonoBehaviour
     }
     void Pause()
     {
-        PauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
         playerScript.cameraCanMove=false;
@@ -57,4 +60,7 @@ public class Pausememu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+    public void toMainMenu(){
+        SceneManager.LoadScene(1);
+    } 
 }
