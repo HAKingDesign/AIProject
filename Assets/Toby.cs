@@ -23,7 +23,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     public GameObject player; //Declares the player as a game object to be interacted with.
     public GameObject[] wps; //Declares an array of game objects used for the waypoint system.
     public GameObject paperObject; //Declares the papers as a game object to be interacted with.
-    public ObjectCollection paperTracker;   //Declares an ObjectCollection variable to be used within the Toby class.
+    private ObjectCollection paperTracker;   //Declares an ObjectCollection variable to be used within the Toby class.
     int currentWP = 0;  //This variable represents which waypoint the AI is targeting.
     Vector3 wanderTarget = Vector3.zero; //Baseline target position that is updated with a new value for the target position to seek each time the Wander() function is called.
 
