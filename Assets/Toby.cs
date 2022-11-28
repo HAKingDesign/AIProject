@@ -81,15 +81,15 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     */
     IEnumerator Wander()    //Function type 'IEnumerator' required as a parameter to utilize the StartCoroutine function.
     {
-        agent.speed = 2;
         float timePassed = 0;   //This variable indicates time passed in seconds.
         currentWP++;    //Increments the waypoint index.
         if (currentWP >= wps.Length)   //Resets the currentWP index to restart at the first waypoint when the index limit is reached.
             currentWP = 0;
-        while (timePassed < 5)  //Represents the number of seconds this function will run.
+        while (timePassed < 6)  //Represents the number of seconds this function will run.
         {
-            float wanderDistance = 10;  //Distance circle is located offset from agent.
-            float wanderRadius = 10;    //Radius of circle.
+            agent.speed = 2.5f; //Sets the AI's speed to be slower when wandering.
+            float wanderDistance = 1;  //Distance circle is located offset from agent.
+            float wanderRadius = 2;    //Radius of circle.
             float wanderJitter = 1;    //Variable that effects the amount of target point repositioning on the circle.
             timePassed += Time.deltaTime;   //Adds real time seconds to the variable.
 
