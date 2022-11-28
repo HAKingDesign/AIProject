@@ -1,5 +1,6 @@
 /*
     AUTHOR: Taylor Dobson
+            Hunter King
     FILENAME: Toby.cs
     SPECIFICATION: AI program for the agent
     FOR: CS 3368 Introduction to Artificial Intelligence Section 002
@@ -26,7 +27,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     private ObjectCollection paperTracker;   //Declares an ObjectCollection variable to be used within the Toby class.
     int currentWP = 0;  //This variable represents which waypoint the AI is targeting.
     public Vector3 wanderTarget = Vector3.zero; //Baseline target position that is updated with a new value for the target position to seek each time the Wander() function is called.
-    public Vector3 targetPosition = Vector3.zero;
+    public Vector3 targetPosition = Vector3.zero;  // variable to save the targetPosition of player or waypoint
 
 
 
@@ -41,7 +42,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     {
         agent = this.GetComponent<NavMeshAgent>(); //Returns the component of type<> if the GameObject has one attached.
         paperTracker = paperObject.GetComponent<ObjectCollection>();    //Instantiates the ObjectCollection type variable as a game object.
-        targetPosition = wps[currentWP].transform.position;
+        targetPosition = wps[currentWP].transform.position; // instantiate the targetPostion with the first wps object position
     }
 
 
@@ -56,20 +57,6 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     void Seek(Vector3 location)
     {
         agent.SetDestination(location); //Sets or updates the destination thus triggering the calculation for a new path.
-    }
-
-
-
-    /* 
-        NAME: Patrol
-        PARAMETERS: None
-        PURPOSE: This function makes the AI target a waypoint to approach.
-        PRECONDITION: This function can be called within the Update function.
-        POSTCONDITION: This function calls the Seek function to head towards the next waypoint in the wps array indicated by the currentWP index.
-    */
-    void Patrol()
-    {
-        Seek(wps[currentWP].transform.position);
     }
 
 
@@ -150,16 +137,16 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     */
     void Update()
     {
-        if (CanSeePlayer()){     //Pursue the player if the player is visible based on the conditions of the CanSeePlayer function.
+        if (CanSeePlayer()){     //set the player position as targetPosition if the player is visible based on the conditions of the CanSeePlayer function.
             targetPosition = player.transform.position;
         }
-        if (Vector3.Distance(agent.transform.position, targetPosition) >= 3  || CanSeePlayer()){
+        if (Vector3.Distance(agent.transform.position, targetPosition) >= 3  || CanSeePlayer()){ // it toby has not reached the current targetPositon or can see the player seeks to targetPositon
             Seek(targetPosition);
         } else if (Vector3.Distance(agent.transform.position, targetPosition) < 3 && !CanSeePlayer()){   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
-            StartCoroutine(Wander()); 
-            targetPosition = wps[currentWP].transform.position;
+            StartCoroutine(Wander()); //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
+            targetPosition = wps[currentWP].transform.position; // set target position to next next waypoint position
         }
-          //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
+          
         agent.speed = (float)((paperTracker.Paper * 0.5) + 3);  //Increases the AI's speed based on the number of papers collected.
     }
 }

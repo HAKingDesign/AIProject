@@ -32,7 +32,7 @@ public class ObjectCollection : MonoBehaviour
     Pausememu PauseScript;
 
     void Start(){
-        PauseScript = Menus.GetComponent<Pausememu>();
+        PauseScript = Menus.GetComponent<Pausememu>(); //obtain Script connected to pause menu 
     }
 
     /*
@@ -40,6 +40,10 @@ public class ObjectCollection : MonoBehaviour
         NAME: OnTriggerEnter
         PARAMTERS: Collider ohter
         PURPOSE: Increment papers collected and delete that object from the game scene
+            check if toby object cause a trigger
+                cause a game over screen if true
+            check if exit object cause a trigger
+                cause a game over screen if true
         PRECONDTION: Player and Paper object are within a radius of 2 units
         POSTCONDTION: Remove the Paper object from the scene and increment
         the Papers collected score.
@@ -56,12 +60,12 @@ public class ObjectCollection : MonoBehaviour
 
         }
         if (other.gameObject.tag == "Toby")
-        {
+        {   // if Toby tagged objects hit player
             Debug.Log("Toby");
             PauseScript.Pause(PauseScript.GameOverUI);
         }
         if (other.gameObject.tag == "Exit")
-        {
+        {   // if Exit tagged objects hit player
             Debug.Log("Exit");
             PauseScript.Pause(PauseScript.GameOverUI);
         }
