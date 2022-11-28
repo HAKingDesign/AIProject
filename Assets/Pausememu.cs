@@ -20,6 +20,14 @@ public class Pausememu : MonoBehaviour
     
     void Start(){
         playerScript = playerObject.GetComponent<FirstPersonController>();
+        GameOverUI.SetActive(false);
+        PauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GamePaused = false;
+        playerScript.cameraCanMove=true;
+        playerScript.lockCursor=true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -27,10 +35,7 @@ public class Pausememu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GamePaused)
-            {   
-                Resume(PauseMenuUI);
-            } else 
+            if (!GamePaused)
             {
                 Pause(PauseMenuUI);
             }
@@ -50,7 +55,7 @@ public class Pausememu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-    void Pause(GameObject UI)
+    public void Pause(GameObject UI)
     {   
         UI.SetActive(true);
         Time.timeScale = 0f;
@@ -65,6 +70,6 @@ public class Pausememu : MonoBehaviour
         Application.Quit();
     }
     public void toMainMenu(){
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     } 
 }

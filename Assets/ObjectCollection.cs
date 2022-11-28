@@ -26,6 +26,14 @@ public class ObjectCollection : MonoBehaviour
 {
     public int Paper = 0; //Amount of Papers collected so far
     public int paperToWin = 7; //How many papers you need to collect to win the game
+    public GameObject ExitGate;
+    public GameObject Menus;
+
+    Pausememu PauseScript;
+
+    void Start(){
+        PauseScript = Menus.GetComponent<Pausememu>();
+    }
 
     /*
 
@@ -46,6 +54,16 @@ public class ObjectCollection : MonoBehaviour
             Debug.Log("A paper was picked up. Total papers = " + Paper);
             Destroy(other.gameObject);
 
+        }
+        if (other.gameObject.tag == "Toby")
+        {
+            Debug.Log("Toby");
+            PauseScript.Pause(PauseScript.GameOverUI);
+        }
+        if (other.gameObject.tag == "Exit")
+        {
+            Debug.Log("Exit");
+            PauseScript.Pause(PauseScript.GameOverUI);
         }
     }
 
@@ -69,6 +87,7 @@ public class ObjectCollection : MonoBehaviour
         else
         {
             GUI.Box(new Rect((Screen.width / 2) - 100, 10, 200, 35), "All papers collected, get out of the castle!");
+            ExitGate.SetActive(true);
         }
     }
 
