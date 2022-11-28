@@ -29,17 +29,20 @@ public class Pausememu : MonoBehaviour
         {
             if (GamePaused)
             {   
-                PauseMenuUI.SetActive(false);
-                Resume();
+                Resume(PauseMenuUI);
             } else 
             {
-                PauseMenuUI.SetActive(true);
-                Pause();
+                Pause(PauseMenuUI);
             }
         }
     }
-    public void Resume()
+    public void PauseResume(){
+        Resume(PauseMenuUI);
+    }
+
+    public void Resume(GameObject UI)
     {
+        UI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
         playerScript.cameraCanMove=true;
@@ -47,8 +50,9 @@ public class Pausememu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-    void Pause()
-    {
+    void Pause(GameObject UI)
+    {   
+        UI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
         playerScript.cameraCanMove=false;
