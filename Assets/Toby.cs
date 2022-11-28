@@ -157,7 +157,6 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
             Seek(targetPosition);
         } else if (Vector3.Distance(agent.transform.position, targetPosition) < 3 && !CanSeePlayer()){   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
             StartCoroutine(Wander()); 
-        } else if (!CanSeePlayer()){    //If the player is not visible based on the conditions of the CanSeePlayer function, continue to call the Patrol function.
             targetPosition = wps[currentWP].transform.position;
         }
           //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
