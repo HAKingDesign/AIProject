@@ -31,8 +31,9 @@ public class ObjectCollection : MonoBehaviour
 
     Pausememu PauseScript;
 
-    void Start(){
-        PauseScript = Menus.GetComponent<Pausememu>(); //obtain Script connected to pause menu 
+    void Start()
+    {
+        PauseScript = Menus.GetComponent<Pausememu>(); //obtain Script connected to pause menu
     }
 
     /*
@@ -90,7 +91,7 @@ public class ObjectCollection : MonoBehaviour
         }
         else
         {
-            GUI.Box(new Rect((Screen.width / 2) - 100, 10, 200, 35), "All papers collected, get out of the castle!");
+            GUI.Box(new Rect((Screen.width / 2) - 150, 10, 250, 35), "All papers collected, get out of the castle!");
             ExitGate.SetActive(true);
         }
     }
