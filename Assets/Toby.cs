@@ -27,7 +27,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     private ObjectCollection paperTracker;   //Declares an ObjectCollection variable to be used within the Toby class.
     int currentWP = 0;  //This variable represents which waypoint the AI is targeting.
     public Vector3 wanderTarget = Vector3.zero; //Baseline target position that is updated with a new value for the target position to seek each time the Wander() function is called.
-    public Vector3 targetPosition = Vector3.zero;  // variable to save the targetPosition of player or waypoint
+    public Vector3 targetPosition = Vector3.zero;  //Variable to save the targetPosition of player or waypoint.
 
 
 
@@ -42,7 +42,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     {
         agent = this.GetComponent<NavMeshAgent>(); //Returns the component of type<> if the GameObject has one attached.
         paperTracker = paperObject.GetComponent<ObjectCollection>();    //Instantiates the ObjectCollection type variable as a game object.
-        targetPosition = wps[currentWP].transform.position; // instantiate the targetPostion with the first wps object position
+        targetPosition = wps[currentWP].transform.position; //Instantiates the targetPostion with the first wps object position.
     }
 
 
@@ -94,7 +94,7 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
 
             Seek(targetWorld); //Instructs the agent to pursue the location created by targetWorld.
 
-            if (CanSeePlayer()){
+            if (CanSeePlayer()){    //If the agent can see the player while Wander is running, will cut out of the Wander function to allow pursuit.
                 break;
             }
             yield return null;  //Yield execution of this coroutine and return to the main loop until next frame.
@@ -137,14 +137,14 @@ public class Toby : MonoBehaviour   //MonoBehaviour is the base class from which
     */
     void Update()
     {
-        if (CanSeePlayer()){     //set the player position as targetPosition if the player is visible based on the conditions of the CanSeePlayer function.
+        if (CanSeePlayer()){     //Set the player position as targetPosition if the player is visible based on the conditions of the CanSeePlayer function.
             targetPosition = player.transform.position;
         }
-        if (Vector3.Distance(agent.transform.position, targetPosition) >= 3  || CanSeePlayer()){ // it toby has not reached the current targetPositon or can see the player seeks to targetPositon
+        if (Vector3.Distance(agent.transform.position, targetPosition) >= 3  || CanSeePlayer()){ //It toby has not reached the current targetPositon or can see the player, seeks to targetPositon.
             Seek(targetPosition);
         } else if (Vector3.Distance(agent.transform.position, targetPosition) < 3 && !CanSeePlayer()){   //Once reaching a waypoint within 3 units and if the player is not visible based on the conditions of the CanSeePlayer function, call the Wander function as a coroutine.
             StartCoroutine(Wander()); //A coroutine is a method that can pause execution and return control to Unity but then continue where it left off on the following frame.
-            targetPosition = wps[currentWP].transform.position; // set target position to next next waypoint position
+            targetPosition = wps[currentWP].transform.position; //Set target position to next waypoint position.
         }
           
         agent.speed = (float)((paperTracker.Paper * 0.5) + 3);  //Increases the AI's speed based on the number of papers collected.
